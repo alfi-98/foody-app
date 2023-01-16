@@ -33,6 +33,18 @@ const FeaturedRow = ({id, title, description}) => {
                  long={20}
                  lat={0}
             />
+            <RestaurantCards
+                 id= {123}
+                 imgUrl= "https://static.vecteezy.com/system/resources/previews/005/069/906/non_2x/japanese-food-sushi-illustration-vector.jpg"
+                 title= "Yo Sushi"
+                 rating={4,5}
+                 genre="Japanese"
+                 address="123 Main st"
+                 short_description="This is a test descrip"
+                 dishes={[]}
+                 long={20}
+                 lat={0}
+            />
 
         </ScrollView>
     </View>
