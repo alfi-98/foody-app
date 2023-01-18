@@ -2,7 +2,7 @@ import { View, Text , SafeAreaView, Image, TextInput, ScrollView} from 'react-na
 import React, {useLayoutEffect} from 'react'
 import { StatusBar } from 'expo-status-bar';
 import {useNavigation} from "@react-navigation/native"
-import { UserIcon, ChevronDownIcon, SearchIcon, AdjustmentsIcon} from "react-native-heroicons/outline";
+import { UserIcon, ChevronDownIcon, SearchIcon, AdjustmentsIcon, MagnifyingGlassIcon, AdjustmentsVerticalIcon} from "react-native-heroicons/outline";
 import Categories from '../components/Categories.js'
 import FeaturedRow from '../components/FeaturedRow.js'
 const HomeScreen = () => {
@@ -36,12 +36,15 @@ const HomeScreen = () => {
                 </View>
 
                 {/* Search */}
-                <View className="items-center space-x-2 pb-2 px-4">
-                    <View className="bg-gray-200 p-3 ">
+                <View className="flex-row items-center space-x-2 pb-2 px-4">
+                    <View className="flex-row flex-1 space-x-2 bg-gray-200 p-3 ">
+                        <MagnifyingGlassIcon size={20} color="gray"/>
                         <TextInput placeholder="Resturaunts and cuisines"
                         keyboardType="default" 
+                        length={100}
                         />
                     </View>
+                    <AdjustmentsVerticalIcon size={20} color="#00CCBB"/>
                 </View>
 
                 {/* Body */}
