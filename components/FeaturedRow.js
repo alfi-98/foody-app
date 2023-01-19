@@ -51,12 +51,13 @@ const FeaturedRow = ({ id, title, description }) => {
             id={restaurant._id}
             imgUrl={restaurant.image}
             address={restaurant.address}
-            title={restaurant.dishes}
+            title={restaurant.name}
             rating={restaurant.rating}
             short_description={restaurant.short_description}
             genre={restaurant.type?.name}
             long={restaurant.long}
             lat={restaurant.lat}
+            dishes={restaurant.dishes}
           />
         ))}
         {/* RestaurantCards Cards */}
