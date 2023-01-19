@@ -77,7 +77,7 @@ const HomeScreen = () => {
                                 key={category._id}
                                 id={category._id}
                                 title={category.name}
-                                description={category.description}
+                                description={category.short_description}
 
                             />
                         ))} 

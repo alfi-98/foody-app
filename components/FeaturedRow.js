@@ -1,9 +1,34 @@
 import { View, Text, ScrollView } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ArrowRightIcon } from "react-native-heroicons/outline";
 import RestaurantCards from "/Users/imac/Documents/alfiDev/Foody/foody-app/components/RestaurantCards.js";
+import sanityClient from "../sanity";
 
 const FeaturedRow = ({ id, title, description }) => {
+  const [restaurants, setRestaurants] = useState([]);
+
+  useEffect(() => {
+    sanityClient
+      .fetch(
+        `
+    *[_type == "featured" && _id==$id] {
+      ...,
+      restaurants[] -> {
+        ...,
+        dishes[] ->,
+        type-> {
+          name
+        }
+          }
+    }[0]
+    `,
+        { id }
+      )
+      .then((data) => {
+        setRestaurants(data?.restaurants);
+      });
+  }, [id]);
+
   return (
     <View>
       <View className="mt-4 flex-row items-center justify-between px-4">
@@ -20,31 +45,21 @@ const FeaturedRow = ({ id, title, description }) => {
         showsHorizontalScrollIndicator={false}
         className="pt-4"
       >
+        {restaurants?.map((restaurant) => (
+          <RestaurantCards
+            key={restaurant._id}
+            id={restaurant._id}
+            imgUrl={restaurant.image}
+            address={restaurant.address}
+            title={restaurant.dishes}
+            rating={restaurant.rating}
+            short_description={restaurant.short_description}
+            genre={restaurant.type?.name}
+            long={restaurant.long}
+            lat={restaurant.lat}
+          />
+        ))}
         {/* RestaurantCards Cards */}
-        <RestaurantCards
-          id={123}
-          imgUrl="https://static.vecteezy.com/system/resources/previews/005/069/906/non_2x/japanese-food-sushi-illustration-vector.jpg"
-          title="Yo Sushi"
-          rating={(4, 5)}
-          genre="Japanese"
-          address="123 Main st"
-          short_description="This is a test descrip"
-          dishes={[]}
-          long={20}
-          lat={0}
-        />
-        <RestaurantCards
-          id={123}
-          imgUrl="https://static.vecteezy.com/system/resources/previews/005/069/906/non_2x/japanese-food-sushi-illustration-vector.jpg"
-          title="Yo Sushi"
-          rating={(4, 5)}
-          genre="Japanese"
-          address="123 Main st"
-          short_description="This is a test descrip"
-          dishes={[]}
-          long={20}
-          lat={0}
-        />
       </ScrollView>
     </View>
   );

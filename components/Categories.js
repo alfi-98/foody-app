@@ -1,8 +1,20 @@
 import { View, Text, ScrollView } from "react-native";
-import React from "react";
+import React, {useState, useEffect} from "react";
 import CategoryCard from "/Users/imac/Documents/alfiDev/Foody/foody-app/components/CategoryCard.js";
+import sanityClient, { urlFor } from "../sanity";
 
 const Categories = () => {
+  const [categories, setCategories] = useState([])
+
+  useEffect(() => {
+   sanityClient.fetch(`
+   *[_type == "category"] 
+ 
+   `)
+   .then((data) => {
+    setCategories(data)
+   })
+  }, []);
   return (
     <ScrollView
       contentContainerStyle={{
@@ -13,26 +25,13 @@ const Categories = () => {
       showsHorizontalScrollIndicator={false}
     >
       {/* Categorie Card */}
-      <CategoryCard
-        imgUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8BA0uG_A-76UEcfujjvSsQgobdhw8GUXzMg&usqp=CAU"
-        title="Testing"
-      />
-      <CategoryCard
-        imgUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_S3ePtyPrrt5bDYGpmcWR5aB7whewcnlVlQ&usqp=CAU"
-        title="Testing"
-      />
-      <CategoryCard
-        imgUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs8YUCurJ-_nV83P1TB91xqRRkpncFbbV_NQ&usqp=CAU"
-        title="Testing"
-      />
-      <CategoryCard
-        imgUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI9gCj672Qh28umVpza6QXodRPTKmeLB4lLg&usqp=CAU"
-        title="Testing"
-      />
-      <CategoryCard
-        imgUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs8YUCurJ-_nV83P1TB91xqRRkpncFbbV_NQ&usqp=CAU"
-        title="Testing"
-      />
+      {categories.map((category) => (
+        <CategoryCard
+          key={category._id}
+          imgUrl={urlFor(category.image).width(200).url()}
+          title={category.name}
+        />
+      ))}
     </ScrollView>
   );
 };
