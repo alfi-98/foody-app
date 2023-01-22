@@ -3,7 +3,11 @@ import React, { useMemo, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { selectRestaurant } from "../features/restaurantSlice";
-import { removeFromBasket, selectBasketItems } from "../features/basketSlice";
+import {
+  removeFromBasket,
+  selectBasketItems,
+  selectBasketTotal,
+} from "../features/basketSlice";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { XCircleIcon } from "react-native-heroicons/solid";
 import { urlFor } from "../sanity";
@@ -13,6 +17,7 @@ const BasketScreen = () => {
   const restaurant = useSelector(selectRestaurant);
   const items = useSelector(selectBasketItems);
   const dispatch = useDispatch();
+  const basketTotal = useSelector(selectBasketTotal);
   const groupedItemsInBasket = useMemo(() => {
     return items.reduce((results, item) => {
       (results[item.id] = results[item.id] || []).push(item);
@@ -75,6 +80,26 @@ const BasketScreen = () => {
             </View>
           ))}
         </ScrollView>
+        <View className="p-5 bg-white mt-5">
+          <View className="flex-row items-center justify-between">
+            <Text className="text-gray-400">Subtotal</Text>
+            <Text className="text-gray-400">Tk. {basketTotal}</Text>
+          </View>
+          <View className="flex-row items-center justify-between pt-10">
+            <Text className="text-gray-400">Delivery Fee</Text>
+            <Text className="text-gray-400">Tk. 80</Text>
+          </View>
+          <View className="flex-row items-center justify-between pt-10">
+            <Text className="">Order Total</Text>
+            <Text className="font-bold">Tk. {basketTotal + 80}</Text>
+          </View>
+          <TouchableOpacity
+            className="bg-[#00CCBB] items-center p-3 mt-5 rounded"
+            onPress={() => navigation.navigate("")}
+             >       
+            <Text className="text-white text-lg font-extrabold">Place Order</Text>           
+        </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );
