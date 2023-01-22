@@ -2,11 +2,25 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
 import { urlFor } from "../sanity";
 import { MinusCircleIcon, PlusCircleIcon } from "react-native-heroicons/solid";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToBasket,
+  removeFromBasket,
+  selectBasketItemsWithId,
+} from "../features/basketSlice";
 
 const DishRow = ({ key, id, name, description, price, image }) => {
   const [isPressed, setIsPressed] = useState(false);
-  const [orderNumber, setOrderNumber] = useState(0);
 
+  const items = useSelector((state) => selectBasketItemsWithId(state, id));
+  const dispatch = useDispatch();
+  const addItemToBasket = () => {
+    dispatch(addToBasket({ id, name, description, price, image }));
+  };
+  const removeItemFromBasket = () => {
+    if (!items.length > 0) return;
+    dispatch(removeFromBasket({ id }));
+  };
   return (
     <>
       <TouchableOpacity
@@ -36,16 +50,18 @@ const DishRow = ({ key, id, name, description, price, image }) => {
       {isPressed && (
         <View className="bg-white px-4">
           <View className="flex-row items-center space-x-2 pb-3 pt-3">
-            <TouchableOpacity
-              onPress={() => {
-                setIsPressed(orderNumber + 1);
-              }}
-            >
-              <MinusCircleIcon color="#00CCBB" size={40} />
-            </TouchableOpacity>
-            <Text>{orderNumber}</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={addItemToBasket}>
               <PlusCircleIcon color="#00CCBB" size={40} />
+            </TouchableOpacity>
+            <Text>{items.length}</Text>
+            <TouchableOpacity
+              disabled={!items.length}
+              onPress={removeItemFromBasket}
+            >
+              <MinusCircleIcon
+                color={items.length > 0 ? "#00CCBB" : "#D3D3D3"}
+                size={40}
+              />
             </TouchableOpacity>
           </View>
         </View>

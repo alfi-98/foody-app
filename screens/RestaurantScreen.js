@@ -7,6 +7,7 @@ import { ArrowLeftIcon } from "react-native-heroicons/outline";
 import { StarIcon, MapPinIcon } from "react-native-heroicons/solid";
 import DishRow from "../components/DishRow";
 import Test from "../components/Test";
+import BasketIcon from "../components/BasketIcon";
 
 const RestaurantScreen = () => {
   const {
@@ -30,6 +31,8 @@ const RestaurantScreen = () => {
     });
   }, []);
   return (
+    <>
+    <BasketIcon/>
     <ScrollView>
       <View className="relative">
         <Image
@@ -60,7 +63,7 @@ const RestaurantScreen = () => {
           {short_description}
         </Text>
       </View>
-      <View>
+      <View className="pb-36">
         <Text className="px-4 pt-6 mb-3 font-bold text-xl">Menu</Text>
         {/*Dishes Row*/}
         {dishes?.map((dish) => (
@@ -77,6 +80,7 @@ const RestaurantScreen = () => {
 
       </View>
     </ScrollView>
+   </>
   );
 };
 
