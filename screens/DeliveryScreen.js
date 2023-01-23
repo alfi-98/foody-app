@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import { selectRestaurant } from "../features/restaurantSlice";
 import { XCircleIcon } from "react-native-heroicons/solid";
 import * as Progress from "react-native-progress";
-
+import MapView, { Marker } from "react-native-maps";
 const DeliveryScreen = () => {
   const navigation = useNavigation();
   const restaurant = useSelector(selectRestaurant);
@@ -46,6 +46,16 @@ const DeliveryScreen = () => {
           <Text className="text-gray-400 mt-5">Food is being prepared</Text>
         </View>
       </SafeAreaView>
+      <MapView
+        intitalRegion={{
+          latitude: 23.8103,
+          longitude: 90.4125,
+          latitudeDelta: 0.0005,
+          longitudDelta: 0.0005,
+        }}
+        className="flex-1 mt-10 z-0"
+        mapType="mutedStandard"
+      ></MapView>
     </View>
   );
 };
