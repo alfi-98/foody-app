@@ -60,7 +60,7 @@ const BasketScreen = () => {
               key={key}
               className="flex-row items-center space-x-3 bg-white py-2 px-5"
             >
-              <Text>{items.length} x</Text>
+              <Text className="text-[#00CCBB]">{items.length} x</Text>
               <Image
                 source={{
                   uri: urlFor(items[0].image).url(),
@@ -95,10 +95,12 @@ const BasketScreen = () => {
           </View>
           <TouchableOpacity
             className="bg-[#00CCBB] items-center p-3 mt-5 rounded"
-            onPress={() => navigation.navigate("")}
-             >       
-            <Text className="text-white text-lg font-extrabold">Place Order</Text>           
-        </TouchableOpacity>
+            onPress={() => navigation.navigate("PreparingOrderScreen")}
+          >
+            <Text className="text-white text-lg font-extrabold">
+              Place Order
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
