@@ -68,7 +68,9 @@ const BasketScreen = () => {
                 className="h-12 w-12 rounded-full"
               />
               <Text className="flex-1">{items[0]?.name}</Text>
-              <Text className="text-gray-600">{items[0]?.price}</Text>
+              <Text className="text-gray-600">
+                Tk. {items[0]?.price * items.length}
+              </Text>
               <TouchableOpacity>
                 <Text
                   className="text-[#00CCBB] text-xs"
