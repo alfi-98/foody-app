@@ -20,7 +20,7 @@ const DeliveryScreen = () => {
       <SafeAreaView>
         <View className="flex-row justify-between items-center p-5">
           <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-            <XCircleIcon color="white" size={30} />
+            <XCircleIcon color="white" size={40} />
           </TouchableOpacity>
           <Text className="font-light text-white text-lg">Order Help</Text>
         </View>
